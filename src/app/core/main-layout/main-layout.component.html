@@ -1,0 +1,34 @@
+<header class="w-full flex gap-5">
+  <h1 class="text-3xl text-white">Rawg.io Angular</h1>
+  <input
+    type="text"
+    placeholder="Search..."
+    class="bg-gray-800 text-white rounded-full px-4 py-2"
+    [(ngModel)]="query"
+    (ngModelChange)="queryChange$.next($event)"
+  />
+</header>
+<main class="content py-28">
+  <nav>
+    <ul>
+      <li>
+        <a routerLink="/games" routerLinkActive="active">Games</a>
+      </li>
+      <li>
+        <a routerLink="/platforms" routerLinkActive="active">Platforms</a>
+      </li>
+      <li>
+        <a routerLink="/stores" routerLinkActive="active">Stores</a>
+      </li>
+      <li>
+        <a routerLink="/developers" routerLinkActive="active">Developers</a>
+      </li>
+      <li>
+        <a routerLink="/publishers" routerLinkActive="active">Publishers</a>
+      </li>
+    </ul>
+  </nav>
+  <div>
+    <router-outlet></router-outlet>
+  </div>
+</main>

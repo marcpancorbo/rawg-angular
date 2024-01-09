@@ -1,1 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+$max-width: 1600px;
+$primary: #151515;
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+    background-color: $primary;
+}
+body {
+  margin: 0 auto;
+  height: 100dvh;
+  font-family: "Inter", sans-serif;
+  color-scheme: light dark;
+  padding: 2em;
+  max-width: $max-width;
+}

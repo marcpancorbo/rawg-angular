@@ -37,6 +37,7 @@
         placeholder="Search Mockups, Logos..."
         [(ngModel)]="query"
         (ngModelChange)="queryChange$.next($event)"
+        #searchInput
       />
       <div
         class="absolute gap-1 inset-y-0 end-0 flex items-center pe-5 pointer-events-none text-sm text-gray-500"

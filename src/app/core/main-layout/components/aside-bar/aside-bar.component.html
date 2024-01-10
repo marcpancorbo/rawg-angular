@@ -4,6 +4,7 @@
       <a
         [routerLink]="['/']"
         routerLinkActive="underline underline-offset-8"
+        [routerLinkActiveOptions]="{ exact: true }"
         title="Home"
         class="text-2xl block font-bold hover:text-[#636363] transition-colors"
         >Home</a
@@ -204,6 +205,8 @@
       <a
         title="Home"
         class="text-2xl block font-bold hover:text-[#636363] transition-colors"
+        [routerLink]="['/games']"
+        routerLinkActive="underline underline-offset-8"
         >All Games</a
       >
     </li>

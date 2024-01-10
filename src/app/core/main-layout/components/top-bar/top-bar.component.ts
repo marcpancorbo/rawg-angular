@@ -1,9 +1,16 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoDestroyService } from '../../../services/utils/auto-destroy.service';
+import { RouterLink } from '@angular/router';
 import { Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
 import { GameSearchService } from '../../../services/common/game-search.service';
-import { RouterLink } from '@angular/router';
+import { AutoDestroyService } from '../../../services/utils/auto-destroy.service';
 
 @Component({
   selector: 'app-top-bar',
@@ -15,6 +22,12 @@ import { RouterLink } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TopBarComponent implements OnInit {
+  @ViewChild('searchInput') searchInput: ElementRef<HTMLInputElement>;
+  @HostListener('document:keydown', ['$event']) onKeyDown(e: KeyboardEvent) {
+    if (e.altKey && e.key === 'Enter') {
+      this.searchInput.nativeElement.focus();
+    }
+  }
   query: string = '';
   queryChange$: Subject<string> = new Subject<string>();
   constructor(

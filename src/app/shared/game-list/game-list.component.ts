@@ -12,4 +12,8 @@ import { GameCardComponent } from '../game-card/game-card.component';
 })
 export class GameListComponent {
   @Input({ required: true }) games: Game[] = [];
+
+  onScroll() {
+    console.log('scrolled');
+  }
 }

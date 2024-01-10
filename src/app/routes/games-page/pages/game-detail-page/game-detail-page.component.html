@@ -1,8 +1,10 @@
 <article class="flex flex-col gap-5">
-  <div class="flex gap-5">
-    <img [src]="gameDetails.background_image" alt="" class="w-[500px] h-auto" />
-    <div class="flex flex-col gap-5">
-      <h1 class="text-5xl text-white font-bold text-balance">
+  <div
+    [style.background-image]="'url(' + gameDetails.background_image + ')'"
+    class="banner"
+  >
+    <div class="flex relative flex-col gap-5 p-20">
+      <h1 class="text-6xl text-white font-bold text-balance">
         {{ gameDetails.name }}
       </h1>
       <div class="flex gap-5 text-white">

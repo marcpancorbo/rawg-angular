@@ -10,7 +10,7 @@ import { GameListComponent } from '../../../../shared/game-list/game-list.compon
 import { SpinnerComponent } from '../../../../shared/spinner/spinner.component';
 
 @Component({
-  selector: 'app-games-page',
+  selector: 'app-new-games-page',
   standalone: true,
   providers: [AutoDestroyService],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -26,13 +26,16 @@ import { SpinnerComponent } from '../../../../shared/spinner/spinner.component';
   templateUrl:
     '../../../../shared/abstract-games-page/abstract-games-page.component.html',
 })
-export class GamesPageComponent extends AbstractGamesPageComponent {
+export class NewGamesPageComponent extends AbstractGamesPageComponent {
   override defaultSearchFilters: SearchFilters = {
     ...this.defaultSearchFilters,
+    ordering: '-released',
+    metacritic: '80,100',
   };
   override componentParams: AbstractGamesPageParams = {
-    ...this.componentParams,
-    title: 'All Games',
+    title: 'New and trending',
+    subtitle: 'Based on player counts and release date',
+    showFilters: false,
   };
   constructor() {
     super();

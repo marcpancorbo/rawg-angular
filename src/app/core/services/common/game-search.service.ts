@@ -17,7 +17,7 @@ export class GameSearchService {
   constructor(private httpClient: HttpClient) {}
 
   searchGames(title: string = ''): Observable<SearchResult> {
-    const params = new HttpParams({ fromObject: { search: title, page_size: 50 } });
+    const params = new HttpParams({ fromObject: { search: title, page_size: 50, ordering: '-released', metacritic: '80,100' } });
     return this.httpClient.get<SearchResult>(
       environment.BASE_API_URL + 'games',
       { params }

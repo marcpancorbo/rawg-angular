@@ -3,11 +3,12 @@ import { FormsModule } from '@angular/forms';
 import { AutoDestroyService } from '../../../services/utils/auto-destroy.service';
 import { Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
 import { GameSearchService } from '../../../services/common/game-search.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-top-bar',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink],
   providers: [AutoDestroyService],
   templateUrl: './top-bar.component.html',
   styleUrl: './top-bar.component.scss',

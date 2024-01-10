@@ -1,27 +1,211 @@
-  <nav class="text-white sticky top-0 py-5">
-    <ul class="flex flex-col gap-5">
-      <li>
-        <a
-          href="#"
-          class="text-2xl block font-bold hover:text-[#636363] transition-colors"
-          >Home</a
-        >
-      </li>
+<nav class="text-white sticky top-0 py-5">
+  <ul class="flex flex-col gap-5">
+    <li>
+      <a
+        [routerLink]="['/']"
+        routerLinkActive="underline underline-offset-8"
+        title="Home"
+        class="text-2xl block font-bold hover:text-[#636363] transition-colors"
+        >Home</a
+      >
+    </li>
 
-      <li>
-        <a
-          href="#"
-          class="text-2xl block font-bold hover:text-[#636363] transition-colors"
-          >Reviews</a
-        >
-      </li>
-      <li class="text-2xl font-bold">
-        New Releases
-        <ul>
-          <li class="text-lg font-normal">Last 30 days</li>
-          <li class="text-lg font-normal">This week</li>
-          <li class="text-lg font-normal">Next week</li>
-        </ul>
-      </li>
-    </ul>
-  </nav>
+    <li>
+      <a
+        href="#"
+        class="text-2xl block font-bold hover:text-[#636363] transition-colors"
+        >Reviews</a
+      >
+    </li>
+    <li class="flex flex-col gap-3 text-2xl font-bold">
+      <span> New Releases</span>
+      <ul class="flex flex-col gap-2">
+        <li>
+          <a href="#" class="text-lg font-normal flex items-center gap-2 group">
+            <span
+              class="p-2 bg-[#202020] text-white rounded-xl group-hover:bg-white group-hover:text-[#202020] transition-colors duration-300"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+                fill="none"
+                class="size-5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path
+                  d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z"
+                  stroke-width="0"
+                  fill="currentColor"
+                />
+              </svg>
+            </span>
+            <span class="text-sm">Last 30 days</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="text-lg font-normal flex items-center gap-2 group">
+            <span
+              class="p-2 bg-[#202020] text-white rounded-xl group-hover:bg-white group-hover:text-[#202020] transition-colors duration-300"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="icon icon-tabler icon-tabler-flame"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path
+                  d="M12 12c2 -2.96 0 -7 -1 -8c0 3.038 -1.773 4.741 -3 6c-1.226 1.26 -2 3.24 -2 5a6 6 0 1 0 12 0c0 -1.532 -1.056 -3.94 -2 -5c-1.786 3 -2.791 3 -4 2z"
+                />
+              </svg>
+            </span>
+            <span class="text-sm">This week</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="text-lg font-normal flex items-center gap-2 group">
+            <span
+              class="p-2 bg-[#202020] text-white rounded-xl group-hover:bg-white group-hover:text-[#202020] transition-colors duration-300"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="icon icon-tabler icon-tabler-player-track-next-filled"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path
+                  d="M2 5v14c0 .86 1.012 1.318 1.659 .753l8 -7a1 1 0 0 0 0 -1.506l-8 -7c-.647 -.565 -1.659 -.106 -1.659 .753z"
+                  stroke-width="0"
+                  fill="currentColor"
+                />
+                <path
+                  d="M13 5v14c0 .86 1.012 1.318 1.659 .753l8 -7a1 1 0 0 0 0 -1.506l-8 -7c-.647 -.565 -1.659 -.106 -1.659 .753z"
+                  stroke-width="0"
+                  fill="currentColor"
+                />
+              </svg>
+            </span>
+            <span class="text-sm">Next week</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <li class="flex flex-col gap-3 text-2xl font-bold">
+      <span>Top</span>
+      <ul class="flex flex-col gap-2">
+        <li>
+          <a href="#" class="text-lg font-normal flex items-center gap-2 group">
+            <span
+              class="p-2 bg-[#202020] text-white rounded-xl group-hover:bg-white group-hover:text-[#202020] transition-colors duration-300"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="icon icon-tabler icon-tabler-award"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M12 9m-6 0a6 6 0 1 0 12 0a6 6 0 1 0 -12 0" />
+                <path d="M12 15l3.4 5.89l1.598 -3.233l3.598 .232l-3.4 -5.889" />
+                <path
+                  d="M6.802 12l-3.4 5.89l3.598 -.233l1.598 3.232l3.4 -5.889"
+                />
+              </svg>
+            </span>
+            <span class="text-sm">Best of the year</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="text-lg font-normal flex items-center gap-2 group">
+            <span
+              class="p-2 bg-[#202020] text-white rounded-xl group-hover:bg-white group-hover:text-[#202020] transition-colors duration-300"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="icon icon-tabler icon-tabler-chart-bar"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path
+                  d="M3 12m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"
+                />
+                <path
+                  d="M9 8m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"
+                />
+                <path
+                  d="M15 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"
+                />
+                <path d="M4 20l14 0" />
+              </svg>
+            </span>
+            <span class="text-sm">Popular in 2023</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="text-lg font-normal flex items-center gap-2 group">
+            <span
+              class="p-2 bg-[#202020] text-white rounded-xl group-hover:bg-white group-hover:text-[#202020] transition-colors duration-300"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="icon icon-tabler icon-tabler-crown"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M12 6l4 6l5 -4l-2 10h-14l-2 -10l5 4z" />
+              </svg>
+            </span>
+            <span class="text-sm">All time top 250</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a
+        title="Home"
+        class="text-2xl block font-bold hover:text-[#636363] transition-colors"
+        >All Games</a
+      >
+    </li>
+  </ul>
+</nav>

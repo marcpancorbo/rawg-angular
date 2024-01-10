@@ -2,7 +2,6 @@ import { HttpInterceptorFn, HttpParams } from '@angular/common/http';
 import { environment } from '../../../environments/environment.development';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  console.log('interceptor');
   req = req.clone({
     params: req.params
       ? req.params.set('key', environment.API_KEY)

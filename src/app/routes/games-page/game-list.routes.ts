@@ -1,22 +1,18 @@
 import { Routes } from '@angular/router';
 import { GameIdResolver } from '../../core/resolvers/game-id.resolver';
+import { GameDetailPageComponent } from './pages/game-detail-page/game-detail-page.component';
+import { GamesPageComponent } from './pages/game-page/games-page.component';
 
-export const gameListRoutes: Routes = [
+export const GAME_LIST_ROUTES: Routes = [
   {
     path: '',
-    loadComponent: () =>
-      import('./pages/game-page/games-page.component').then(
-        (m) => m.GamesPageComponent
-      ),
+    component: GamesPageComponent,
   },
   {
     path: 'games/:id',
+    component: GameDetailPageComponent,
     resolve: {
       game: GameIdResolver,
     },
-    loadComponent: () =>
-      import('./pages/game-detail-page/game-detail-page.component').then(
-        (m) => m.GameDetailPageComponent
-      ),
   },
 ];

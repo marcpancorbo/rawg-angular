@@ -1,28 +1,45 @@
 <a [routerLink]="['/games', game.id]">
-  <div
-    class="flex flex-col group gap-5 rounded-md h-full hover:scale-110 transition-transform bg-[#202020] text-white"
-  >
-    <img
-      class="w-full h-48"
-      [src]="game.background_image"
-      alt="{{ game.name }}"
-    />
-    <div class="p-3 group-hover: flex flex-col gap-5">
-      <span class="text-2xl font-semibold text-balance">{{ game.name }}</span>
-      <div class="flex-col gap-5 hidden group-hover:flex">
-        <div class="flex justify-between">
-          <span class="text-sm text-slate-400">Genres</span>
-          <div class="flex gap-2">
-            @for (genre of game.genres; track genre.id) {
-            <span class="text-sm text-white">{{ genre.name }}</span>
-            }
+  <div class="relative h-[300px]">
+    <div
+      class="flex flex-col w-full z-0 group gap-5 rounded-lg hover:scale-110 hover:absolute hover:top-0 hover:left-0 hover:z-10 transition-transform duration-300 bg-[#202020] text-white"
+    >
+      <img
+        class="w-full h-40 rounded-lg object-cover"
+        [src]="game.background_image"
+        alt="{{ game.name }}"
+      />
+      <div class="p-3 group-hover: flex flex-col gap-5">
+        <span class="text-2xl font-semibold text-balance">{{ game.name }}</span>
+        <div class="flex-col gap-3 hidden group-hover:flex">
+          <div class="flex justify-between">
+            <span class="text-xs text-[#636363]">Genres</span>
+            <div class="flex gap-2">
+              @for (genre of game.genres; track genre.id) {
+              <span class="text-xs text-white">{{ genre.name }}</span>
+              }
+            </div>
           </div>
-        </div>
-        <div class="flex justify-between">
-          <span class="text-sm text-slate-400">Release date</span>
-          <span class="text-sm text-white">{{
-            game.released | date : "dd/MM/yyyy"
-          }}</span>
+          <hr class="border-[#636363]" />
+          <div class="flex justify-between">
+            <span class="text-xs text-[#636363]">Release date</span>
+            <span class="text-xs text-white">{{
+              game.released | date : "dd/MM/yyyy"
+            }}</span>
+          </div>
+          <hr class="border-[#636363]" />
+          <div class="flex justify-between">
+            <span class="text-xs text-[#636363]">Release date</span>
+            <span class="text-xs text-white">{{
+              game.released | date : "dd/MM/yyyy"
+            }}</span>
+          </div>
+          <hr class="border-[#636363]" />
+          <div class="flex justify-between">
+            <span class="text-xs text-[#636363]">Release date</span>
+            <span class="text-xs text-white">{{
+              game.released | date : "dd/MM/yyyy"
+            }}</span>
+          </div>
         </div>
       </div>
     </div>

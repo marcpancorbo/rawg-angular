@@ -1,4 +1,4 @@
 export const environment = {
-  API_KEY: 'YOUR_API_KEY',
+  API_KEY: '6458070eba194380952c3eb17cd016b4',
   BASE_API_URL: 'https://api.rawg.io/api/',
 };

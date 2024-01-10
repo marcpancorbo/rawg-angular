@@ -1,0 +1,52 @@
+<header class="w-full items-center flex gap-5">
+    <h1 class="text-xl font-bold text-white">AnguRawg</h1>
+  
+    <div class="flex-1">
+      <label
+        for="default-search"
+        class="mb-2 text-sm font-medium text-gray-900 sr-only"
+        >Search</label
+      >
+      <div class="relative">
+        <div
+          class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
+        >
+          <svg
+            class="w-4 h-4 text-gray-500"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 20 20"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+            />
+          </svg>
+        </div>
+        <input
+          type="search"
+          autocomplete="off"
+          id="default-search"
+          class="block w-full p-4 ps-10 text-sm outline-none text-gray-900 rounded-full bg-[#3b3b3b] hover:bg-white focus:bg-white transition-colors duration-300"
+          placeholder="Search Mockups, Logos..."
+          [(ngModel)]="query"
+          (ngModelChange)="queryChange$.next($event)"
+        />
+        <div
+          class="absolute gap-1 inset-y-0 end-0 flex items-center pe-5 pointer-events-none text-sm text-gray-500"
+        >
+          <div class="border border-gray-500 px-1.5 py-0.5">
+            <code>alt</code>
+          </div>
+          <span>+</span>
+          <div class="border border-gray-500 px-1.5 py-0.5">
+            <code>enter</code>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>

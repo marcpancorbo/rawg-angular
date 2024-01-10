@@ -14,7 +14,9 @@ $primary: #151515;
   padding: 0;
 }
 html {
-    background-color: $primary;
+  background-color: $primary;
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
 }
 body {
   margin: 0 auto;

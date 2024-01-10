@@ -3,7 +3,7 @@
   infiniteScroll
   [infiniteScrollDistance]="2"
   [infiniteScrollThrottle]="50"
-  (scrolled)="onScroll()"
+  (scrolled)="scrolled$.next()"
 >
   <div class="flex flex-col gap-3">
     <h1 class="text-7xl text-white font-bold">{{ componentParams.title }}</h1>
@@ -37,7 +37,7 @@
         class="block w-full p-2 text-sm text-white rounded-lg bg-[#202020] outline-none"
         formControlName="genres"
       >
-        <option value="" disabled selected>Select your option</option>
+        <option value="">All</option>
         @for(genre of $genres(); track genre.id){
         <option [value]="genre.id">{{ genre.name }}</option>
         }

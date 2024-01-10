@@ -1,26 +1,32 @@
+import { NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  OnDestroy,
   OnInit,
   Signal,
-  TemplateRef,
-  ViewChild,
+  WritableSignal,
   inject,
+  signal,
 } from '@angular/core';
-import { Subject, merge, switchMap, take, takeUntil, tap } from 'rxjs';
-import { Game, Genre } from '../../core/models/game';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import {
+  BehaviorSubject,
+  Subject,
+  exhaustMap,
+  switchMap,
+  take,
+  takeUntil,
+  tap,
+} from 'rxjs';
+import { AbstractGamesPageParams } from '../../core/models/abstract-games-page-params';
+import { Game, Genre, SearchResult } from '../../core/models/game';
+import { SearchFilters } from '../../core/models/search-filters';
 import { GameSearchService } from '../../core/services/common/game-search.service';
 import { AutoDestroyService } from '../../core/services/utils/auto-destroy.service';
+import { GenreService } from '../../routes/games-page/services/genre.service';
 import { GameListComponent } from '../game-list/game-list.component';
 import { SpinnerComponent } from '../spinner/spinner.component';
-import { SearchFilters } from '../../core/models/search-filters';
-import { NgTemplateOutlet } from '@angular/common';
-import { AbstractGamesPageParams } from '../../core/models/abstract-games-page-params';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { GenreService } from '../../routes/games-page/services/genre.service';
-import { GenresResult } from '../../core/models/genres';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @Component({
   selector: 'app-abstract-games-page',
@@ -35,92 +41,106 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     ReactiveFormsModule,
     InfiniteScrollModule,
   ],
-  templateUrl: './abstract-games-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './abstract-games-page.component.html',
   styleUrl: './abstract-games-page.component.scss',
 })
-export abstract class AbstractGamesPageComponent implements OnInit, OnDestroy {
+export abstract class AbstractGamesPageComponent implements OnInit {
   private readonly gamesSearchService: GameSearchService =
     inject(GameSearchService);
   private readonly genreService: GenreService = inject(GenreService);
   private readonly destroy$: AutoDestroyService = inject(AutoDestroyService);
   private readonly fb: FormBuilder = inject(FormBuilder);
-  $games: Signal<Game[]> = this.gamesSearchService.$games;
-  $genres: Signal<Genre[]> = this.genreService.$genres;
+  $games: WritableSignal<Game[]> = signal([]);
+  $genres: WritableSignal<Genre[]> = signal([]);
   $loading: Signal<boolean> = this.gamesSearchService.$loading;
-  onFiltersChange$: Subject<SearchFilters> = new Subject<SearchFilters>();
+  filters$: BehaviorSubject<SearchFilters>;
+  scrolled$: Subject<void> = new Subject<void>();
   form: FormGroup;
   defaultSearchFilters: SearchFilters = {
     search: '',
-    page_size: 50,
+    page_size: 25,
+    ordering: '-relevance',
+    genres: '',
   };
   componentParams: AbstractGamesPageParams = {
     title: 'Please provide a title',
     showFilters: true,
   };
   constructor() {}
+
   ngOnInit(): void {
     if (this.componentParams.showFilters) {
       this.initForm();
+      this.getGenres();
     }
-    this.getGenres();
     this.subscribeToFiltersChange();
     this.subscribeToQueryChanges();
+    this.subscribeToInfiniteScroll();
   }
+
   initForm(): void {
     this.form = this.fb.group({
-      order: ['-relevance'],
-      genres: [''],
+      order: [this.defaultSearchFilters.ordering],
+      genres: [this.defaultSearchFilters.genres],
     });
     this.subscribeToFormChanges();
   }
-  onScroll(): void {
-    this.onFiltersChange$.next(this.defaultSearchFilters);
-  }
-  subscribeToFiltersChange(): void {
-    this.onFiltersChange$
-      .pipe(
-        switchMap((filters: SearchFilters) =>
-          this.gamesSearchService.searchGames(filters)
-        ),
-        takeUntil(this.destroy$)
-      )
-      .subscribe((data) => {
-        this.gamesSearchService.setNextUrl(data.next);
-        this.gamesSearchService.setGames(data.results);
-      });
-  }
-  subscribeToQueryChanges(): void {
-    this.gamesSearchService.queryString$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((query: string) => {
-        this.onFiltersChange$.next({
-          ...this.defaultSearchFilters,
-          search: query,
-        });
-      });
-  }
-
   subscribeToFormChanges(): void {
     this.form.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(() => {
       const ordering = this.form.controls['order'].value;
       const genres = this.form.controls['genres'].value;
-      this.onFiltersChange$.next({
-        ...this.defaultSearchFilters,
+      this.filters$.next({
+        ...this.filters$.getValue(),
         ordering,
         genres,
       });
     });
   }
+
+  subscribeToFiltersChange(): void {
+    this.filters$ = new BehaviorSubject<SearchFilters>({
+      ...this.defaultSearchFilters,
+    });
+    this.filters$
+      .pipe(
+        tap(() => this.$games.set([])),
+        switchMap((filters: SearchFilters) =>
+          this.gamesSearchService.searchGames(filters)
+        ),
+        takeUntil(this.destroy$)
+      )
+      .subscribe((data: SearchResult) => this.$games.set(data.results));
+  }
+  subscribeToInfiniteScroll(): void {
+    this.scrolled$
+      .pipe(
+        exhaustMap(() => {
+          return this.gamesSearchService.nextPage();
+        }),
+        takeUntil(this.destroy$)
+      )
+      .subscribe((data: SearchResult) =>
+        this.$games.update((values: Game[]) => {
+          return [...values, ...data.results];
+        })
+      );
+  }
+  subscribeToQueryChanges(): void {
+    this.gamesSearchService.queryString$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((query: string) => {
+        this.filters$.next({
+          ...this.filters$.getValue(),
+          search: query,
+        });
+      });
+  }
+
   getGenres(): void {
     this.genreService
       .getGenres()
       .pipe(take(1))
-      .subscribe((genres: GenresResult) =>
-        this.genreService.setGenres(genres.results)
-      );
-  }
-  ngOnDestroy(): void {
-    this.gamesSearchService.setNextUrl('');
+      .subscribe((genres: Genre[]) => this.$genres.set(genres));
   }
 }

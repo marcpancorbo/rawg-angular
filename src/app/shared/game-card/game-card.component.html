@@ -1,6 +1,6 @@
 <div class="relative h-[300px]">
   <div
-    class="flex flex-col w-full z-0 group gap-5 rounded-lg shadow-lg hover:scale-110 hover:absolute hover:top-0 hover:left-0 hover:z-10 transition-transform duration-300 bg-[#202020] text-white"
+    class="flex flex-col w-full z-0 group gap-2 rounded-lg shadow-lg hover:scale-110 hover:absolute hover:top-0 hover:left-0 hover:z-10 transition-transform duration-300 bg-[#202020] text-white"
   >
     <img
       class="w-full h-40 rounded-lg object-cover"
@@ -8,41 +8,99 @@
       alt="{{ game.name }}"
     />
 
-    <div class="p-3 group-hover:flex flex-col gap-5">
+    <div class="px-3 pb-10 flex flex-col gap-5">
       <a
         [routerLink]="['/games', game.id]"
         class="text-2xl font-bold text-balance hover:text-[#636363] transition-colors"
         >{{ game.name }}</a
       >
+      <div class="flex gap-1 items-center">
+        <button
+          class="py-1 px-2 flex items-center gap-1 bg-[#3b3b3b] text-white hover:bg-white hover:text-[#3b3b3b] rounded-md transition-colors duration-300"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="size-4"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M12 5l0 14" />
+            <path d="M5 12l14 0" />
+          </svg>
+          <span class="text-xs">780</span>
+        </button>
+
+        <button
+          class="py-1 px-2 flex opacity-0 items-center gap-1 bg-[#3b3b3b] text-white hover:bg-white hover:text-[#3b3b3b] group-hover:opacity-100 rounded-md transition-opacity duration-300"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="size-4"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M3 8m0 1a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1z"
+            />
+            <path d="M12 8l0 13" />
+            <path d="M19 12v7a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-7" />
+            <path
+              d="M7.5 8a2.5 2.5 0 0 1 0 -5a4.8 8 0 0 1 4.5 5a4.8 8 0 0 1 4.5 -5a2.5 2.5 0 0 1 0 5"
+            />
+          </svg>
+        </button>
+        <button
+          class="py-1 px-2 flex opacity-0 items-center gap-1 bg-[#3b3b3b] text-white hover:bg-white hover:text-[#3b3b3b] group-hover:opacity-100 rounded-md transition-opacity duration-300"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="size-4"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M5 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+            <path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+            <path d="M19 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+          </svg>
+        </button>
+      </div>
       <div class="flex-col gap-3 hidden group-hover:flex">
         <div class="flex justify-between">
-          <span class="text-xs text-[#636363]">Genres</span>
-          <div class="flex gap-2">
+          <span class="text-xs font-bold text-[#636363]">Release date:</span>
+          <span class="text-xs text-white">{{
+            game.released | date : "MMM d, y"
+          }}</span>
+        </div>
+        <hr class="border-[#636363]" />
+
+        <div class="flex justify-between">
+          <span class="text-xs font-bold text-[#636363]">Genres:</span>
+          <div class="flex gap-2 flex-wrap">
             @for (genre of game.genres; track genre.id) {
-            <span class="text-xs text-white">{{ genre.name }}</span>
+            <a href="#" class="text-xs underline text-white hover:text-[#636363] transition-colors duration-300">{{ genre.name }}</a>
             }
           </div>
-        </div>
-        <hr class="border-[#636363]" />
-        <div class="flex justify-between">
-          <span class="text-xs text-[#636363]">Release date</span>
-          <span class="text-xs text-white">{{
-            game.released | date : "dd/MM/yyyy"
-          }}</span>
-        </div>
-        <hr class="border-[#636363]" />
-        <div class="flex justify-between">
-          <span class="text-xs text-[#636363]">Release date</span>
-          <span class="text-xs text-white">{{
-            game.released | date : "dd/MM/yyyy"
-          }}</span>
-        </div>
-        <hr class="border-[#636363]" />
-        <div class="flex justify-between">
-          <span class="text-xs text-[#636363]">Release date</span>
-          <span class="text-xs text-white">{{
-            game.released | date : "dd/MM/yyyy"
-          }}</span>
         </div>
       </div>
     </div>

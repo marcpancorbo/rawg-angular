@@ -48,11 +48,11 @@ import { SpinnerComponent } from '../spinner/spinner.component';
 export abstract class AbstractGamesPageComponent implements OnInit {
   private readonly gamesSearchService: GameSearchService =
     inject(GameSearchService);
-  private readonly genreService: GenreService = inject(GenreService);
+  public readonly genreService: GenreService = inject(GenreService);
   private readonly destroy$: AutoDestroyService = inject(AutoDestroyService);
   private readonly fb: FormBuilder = inject(FormBuilder);
   $games: WritableSignal<Game[]> = signal([]);
-  $genres: WritableSignal<Genre[]> = signal([]);
+  $genres: Signal<Genre[]> = this.genreService.$genres;
   $loading: Signal<boolean> = this.gamesSearchService.$loading;
   filters$: BehaviorSubject<SearchFilters>;
   scrolled$: Subject<void> = new Subject<void>();
@@ -72,7 +72,6 @@ export abstract class AbstractGamesPageComponent implements OnInit {
   ngOnInit(): void {
     if (this.componentParams.showFilters) {
       this.initForm();
-      this.getGenres();
     }
     this.subscribeToFiltersChange();
     this.subscribeToQueryChanges();
@@ -135,12 +134,5 @@ export abstract class AbstractGamesPageComponent implements OnInit {
           search: query,
         });
       });
-  }
-
-  getGenres(): void {
-    this.genreService
-      .getGenres()
-      .pipe(take(1))
-      .subscribe((genres: Genre[]) => this.$genres.set(genres));
   }
 }

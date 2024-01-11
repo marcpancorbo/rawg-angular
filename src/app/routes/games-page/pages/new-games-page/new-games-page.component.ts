@@ -35,7 +35,7 @@ export class NewGamesPageComponent extends AbstractGamesPageComponent {
   override componentParams: AbstractGamesPageParams = {
     title: 'New and trending',
     subtitle: 'Based on player counts and release date',
-    showFilters: false,
+    showFilters: true,
   };
   constructor() {
     super();

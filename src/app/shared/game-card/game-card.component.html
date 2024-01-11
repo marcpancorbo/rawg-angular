@@ -98,7 +98,7 @@
           <span class="text-xs font-bold text-[#636363]">Genres:</span>
           <div class="flex gap-2 flex-wrap">
             @for (genre of game.genres; track genre.id) {
-            <a href="#" class="text-xs underline text-white hover:text-[#636363] transition-colors duration-300">{{ genre.name }}</a>
+            <button [routerLink]="['/genres', genre.name]" class="text-xs underline text-white hover:text-[#636363] transition-colors duration-300">{{ genre.name }}</button>
             }
           </div>
         </div>

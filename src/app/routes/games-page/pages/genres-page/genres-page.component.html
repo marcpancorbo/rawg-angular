@@ -1,0 +1,27 @@
+@if ($loading()) {
+<app-spinner></app-spinner>
+}@else {
+<article>
+  <h1 class="text-7xl text-white font-bold">Genres</h1>
+  <section class="grid grid-cols-1 md:grid-cols-2 pt-4 lg:grid-cols-4 gap-5">
+    @for(genre of $genres(); track genre.id) {
+    <figure
+      class="flex flex-col gap-2 bg-[#202020] rounded-md hover:scale-105 transition-transform duration-300"
+    >
+      <img
+        class="rounded-md h-[300px] w-auto object-cover"
+        [src]="genre.image_background"
+        [alt]="genre.name"
+      />
+      <figcaption class="p-3">
+        <a
+          [routerLink]="['/genres', genre.name]"
+          class="text-2xl font-bold text-balance text-white hover:text-[#636363] transition-colors"
+          >{{ genre.name }}</a
+        >
+      </figcaption>
+    </figure>
+    }
+  </section>
+</article>
+}

@@ -4,11 +4,11 @@
   >
     <img
       class="w-full h-40 rounded-lg object-cover"
-      [src]="game.background_image"
+      [src]="game.short_screenshots?.[0]?.image"
       alt="{{ game.name }}"
     />
 
-    <div class="p-3 group-hover: flex flex-col gap-5">
+    <div class="p-3 group-hover:flex flex-col gap-5">
       <a
         [routerLink]="['/games', game.id]"
         class="text-2xl font-bold text-balance hover:text-[#636363] transition-colors"

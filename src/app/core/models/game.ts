@@ -34,7 +34,7 @@ export interface Game {
   clip: any;
   tags: Tag[];
   esrb_rating: EsrbRating;
-  short_screenshots: ShortScreenshot[];
+  short_screenshots?: ShortScreenshot[];
 }
 
 export interface Rating {

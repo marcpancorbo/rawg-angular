@@ -22,7 +22,11 @@
       <span> New Releases</span>
       <ul class="flex flex-col gap-2">
         <li>
-          <a href="#" class="text-lg font-normal flex items-center gap-2 group">
+          <a
+            [routerLink]="['/last-30-days']"
+            routerLinkActive="underline underline-offset-8"
+            class="text-lg font-normal flex items-center gap-2 group"
+          >
             <span
               class="p-2 bg-[#202020] text-white rounded-xl group-hover:bg-white group-hover:text-[#202020] transition-colors duration-300"
             >

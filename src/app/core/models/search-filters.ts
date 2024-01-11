@@ -5,4 +5,5 @@ export interface SearchFilters {
   metacritic?: string;
   platform?: string;
   genres?: string;
+  updated?: string;
 }

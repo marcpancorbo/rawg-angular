@@ -1,10 +1,10 @@
 # RawgAngular
 
-[rawg-angular](https://github.com/marcpancorbo/rawg-angular/assets/55668102/61e845ee-c164-4838-93ae-f5c139fd3a60)
+![rawg-angular](https://github.com/marcpancorbo/rawg-angular/assets/55668102/61e845ee-c164-4838-93ae-f5c139fd3a60)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.3.
 
-## Development server!
+## Development server
 
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.

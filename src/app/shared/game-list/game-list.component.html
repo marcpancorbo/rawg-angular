@@ -1,5 +1,9 @@
 <div class="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-5 gap-6">
   @for(game of games; track game.id) {
   <app-game-card [game]="game"></app-game-card>
-  }
+  }@empty { @if(!$loading()){
+  <div class="col-span-full">
+    <p class="text-center text-white">No games found</p>
+  </div>
+  } }
 </div>

@@ -1,6 +1,12 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  Signal,
+} from '@angular/core';
 import { Game } from '../../core/models/game';
 import { GameCardComponent } from '../game-card/game-card.component';
+import { GameSearchService } from '../../core/services/common/game-search.service';
 
 @Component({
   selector: 'app-game-list',
@@ -12,8 +18,7 @@ import { GameCardComponent } from '../game-card/game-card.component';
 })
 export class GameListComponent {
   @Input({ required: true }) games: Game[] = [];
+  $loading: Signal<boolean> = this.searchService.$loading;
 
-  onScroll() {
-    console.log('scrolled');
-  }
+  constructor(private searchService: GameSearchService) {}
 }

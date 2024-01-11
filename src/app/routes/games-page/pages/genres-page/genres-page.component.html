@@ -1,15 +1,15 @@
 @if ($loading()) {
 <app-spinner></app-spinner>
 }@else {
-<article>
+<article class="flex flex-col gap-10">
   <h1 class="text-7xl text-white font-bold">Genres</h1>
-  <section class="grid grid-cols-1 md:grid-cols-2 pt-4 lg:grid-cols-4 gap-5">
+  <section class="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-5 gap-6">
     @for(genre of $genres(); track genre.id) {
     <figure
-      class="flex flex-col gap-2 bg-[#202020] rounded-md hover:scale-105 transition-transform duration-300"
+      class="flex flex-col gap-2 h-[300px] bg-[#202020] rounded-md hover:scale-105 transition-transform duration-300"
     >
       <img
-        class="rounded-md h-[300px] w-auto object-cover"
+        class="w-auto h-40 rounded-lg object-cover"
         [src]="genre.image_background"
         [alt]="genre.name"
       />

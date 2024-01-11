@@ -1,19 +1,15 @@
 import { NgTemplateOutlet } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { takeUntil } from 'rxjs';
 import { AbstractGamesPageParams } from '../../../../core/models/abstract-games-page-params';
+import { Genre } from '../../../../core/models/game';
 import { AutoDestroyService } from '../../../../core/services/utils/auto-destroy.service';
 import { AbstractGamesPageComponent } from '../../../../shared/abstract-games-page/abstract-games-page.component';
 import { GameListComponent } from '../../../../shared/game-list/game-list.component';
 import { SpinnerComponent } from '../../../../shared/spinner/spinner.component';
-import { Genre } from '../../../../core/models/game';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-genre-page',
@@ -32,41 +28,42 @@ import { Router } from '@angular/router';
     '../../../../shared/abstract-games-page/abstract-games-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GenrePageComponent
-  extends AbstractGamesPageComponent
-  implements OnInit
-{
-  @Input('genre') genre: string;
+export class GenrePageComponent extends AbstractGamesPageComponent {
   override componentParams: AbstractGamesPageParams = {
-    title: 'Genre',
+    title: '',
+    showFilters: false,
   };
+  genre: string = '';
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private route: ActivatedRoute) {
     super();
   }
-  override ngOnInit(): void {
-    if (
-      !this.$genres().find(
-        (genre) => genre.name.toLowerCase() === this.genre.toLowerCase()
-      )
-    ) {
-      this.router.navigate(['/']);
-    } else {
-      this.setParentConfig();
-      super.ngOnInit();
-    }
+
+  override subscribeToFiltersChange(): void {
+    this.subscribeToRouteParam();
+    super.subscribeToFiltersChange();
   }
 
-  setParentConfig(): void {
-    this.componentParams.title =
-      this.genre.slice(0, 1).toUpperCase() + this.genre.slice(1);
-
-    const genre: Genre = this.$genres().find(
-      (genre) => genre.name.toLowerCase() === this.genre.toLowerCase()
-    )!;
-    this.defaultSearchFilters = {
-      ...this.defaultSearchFilters,
-      genres: genre.id.toString(),
-    };
+  subscribeToRouteParam(): void {
+    this.route.params.pipe(takeUntil(this.destroy$)).subscribe((params) => {
+      this.genre = params['genre'];
+      if (
+        !this.$genres().find(
+          (genre: Genre) =>
+            genre.name.toLowerCase() === this.genre.toLowerCase()
+        )
+      ) {
+        this.router.navigate(['/']);
+      } else {
+        this.componentParams.title =
+          this.genre.slice(0, 1).toUpperCase() + this.genre.slice(1);
+        const genreId: string = this.$genres()
+          .find(
+            (genre) => genre.name.toLowerCase() === this.genre.toLowerCase()
+          )!
+          .id.toString();
+        this.filters$.next({ ...this.defaultSearchFilters, genres: genreId });
+      }
+    });
   }
 }

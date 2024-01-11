@@ -46,10 +46,10 @@ import { SpinnerComponent } from '../spinner/spinner.component';
   styleUrl: './abstract-games-page.component.scss',
 })
 export abstract class AbstractGamesPageComponent implements OnInit {
-  private readonly gamesSearchService: GameSearchService =
+  protected readonly gamesSearchService: GameSearchService =
     inject(GameSearchService);
-  public readonly genreService: GenreService = inject(GenreService);
-  private readonly destroy$: AutoDestroyService = inject(AutoDestroyService);
+  protected readonly genreService: GenreService = inject(GenreService);
+  protected readonly destroy$: AutoDestroyService = inject(AutoDestroyService);
   private readonly fb: FormBuilder = inject(FormBuilder);
   $games: WritableSignal<Game[]> = signal([]);
   $genres: Signal<Genre[]> = this.genreService.$genres;
@@ -70,6 +70,9 @@ export abstract class AbstractGamesPageComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
+    this.filters$ = new BehaviorSubject<SearchFilters>({
+      ...this.defaultSearchFilters,
+    });
     if (this.componentParams.showFilters) {
       this.initForm();
     }
@@ -98,9 +101,6 @@ export abstract class AbstractGamesPageComponent implements OnInit {
   }
 
   subscribeToFiltersChange(): void {
-    this.filters$ = new BehaviorSubject<SearchFilters>({
-      ...this.defaultSearchFilters,
-    });
     this.filters$
       .pipe(
         tap(() => this.$games.set([])),

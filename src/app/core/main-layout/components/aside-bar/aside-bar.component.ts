@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Signal } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { GenreService } from '../../../../routes/games-page/services/genre.service';
 import { Genre } from '../../../models/game';
 
@@ -13,7 +13,5 @@ import { Genre } from '../../../models/game';
 })
 export class AsideBarComponent {
   $genres: Signal<Genre[]> = this.genreService.$genres;
-  constructor(private genreService: GenreService, private router: Router) {
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-  }
+  constructor(private genreService: GenreService) {}
 }

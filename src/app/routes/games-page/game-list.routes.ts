@@ -4,8 +4,8 @@ import { GameDetailPageComponent } from './pages/game-detail-page/game-detail-pa
 import { GamesPageComponent } from './pages/game-page/games-page.component';
 import { GenrePageComponent } from './pages/genre-page/genre-page.component';
 import { GenresPageComponent } from './pages/genres-page/genres-page.component';
-import { NewGamesPageComponent } from './pages/new-games-page/new-games-page.component';
 import { Last30DaysPageComponent } from './pages/last-30-days-page/last-30-days-page.component';
+import { NewGamesPageComponent } from './pages/new-games-page/new-games-page.component';
 
 export const GAME_LIST_ROUTES: Routes = [
   {
@@ -22,6 +22,9 @@ export const GAME_LIST_ROUTES: Routes = [
     resolve: {
       game: GameIdResolver,
     },
+    data: {
+      reuseComponent: false,
+    },
   },
   {
     path: 'last-30-days',
@@ -35,5 +38,8 @@ export const GAME_LIST_ROUTES: Routes = [
   {
     path: 'genres/:genre',
     component: GenrePageComponent,
+    data: {
+      reuseComponent: false,
+    },
   },
 ];

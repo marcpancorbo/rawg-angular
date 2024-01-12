@@ -1,10 +1,13 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { takeUntil } from 'rxjs';
-import { AbstractGamesPageParams } from '../../../../core/models/abstract-games-page-params';
 import { Genre } from '../../../../core/models/game';
 import { AutoDestroyService } from '../../../../core/services/utils/auto-destroy.service';
 import { AbstractGamesPageComponent } from '../../../../shared/abstract-games-page/abstract-games-page.component';
@@ -28,42 +31,36 @@ import { SpinnerComponent } from '../../../../shared/spinner/spinner.component';
     '../../../../shared/abstract-games-page/abstract-games-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GenrePageComponent extends AbstractGamesPageComponent {
-  override componentParams: AbstractGamesPageParams = {
-    title: '',
-    showFilters: false,
-  };
-  genre: string = '';
+export class GenrePageComponent
+  extends AbstractGamesPageComponent
+  implements OnInit
+{
+  @Input() genre: string = '';
 
-  constructor(private router: Router, private route: ActivatedRoute) {
+  constructor(private router: Router) {
     super();
   }
 
-  override subscribeToFiltersChange(): void {
-    this.subscribeToRouteParam();
-    super.subscribeToFiltersChange();
+  override ngOnInit(): void {
+    this.setParentConfig();
+    super.ngOnInit();
   }
-
-  subscribeToRouteParam(): void {
-    this.route.params.pipe(takeUntil(this.destroy$)).subscribe((params) => {
-      this.genre = params['genre'];
-      if (
-        !this.$genres().find(
-          (genre: Genre) =>
-            genre.name.toLowerCase() === this.genre.toLowerCase()
-        )
-      ) {
-        this.router.navigate(['/']);
-      } else {
-        this.componentParams.title =
-          this.genre.slice(0, 1).toUpperCase() + this.genre.slice(1);
-        const genreId: string = this.$genres()
-          .find(
-            (genre) => genre.name.toLowerCase() === this.genre.toLowerCase()
-          )!
-          .id.toString();
-        this.filters$.next({ ...this.defaultSearchFilters, genres: genreId });
-      }
-    });
+  setParentConfig(): void {
+    const genre: Genre | undefined = this.$genres().find(
+      (genre: Genre) => genre.name.toLowerCase() === this.genre.toLowerCase()
+    );
+    if (!genre) {
+      this.router.navigate(['/games']);
+      return;
+    }
+    this.componentParams = {
+      ...this.componentParams,
+      title: this.genre.slice(0, 1).toUpperCase() + this.genre.slice(1),
+      showFilters: false
+    };
+    this.defaultSearchFilters = {
+      ...this.defaultSearchFilters,
+      genres: genre.id.toString(),
+    };
   }
 }

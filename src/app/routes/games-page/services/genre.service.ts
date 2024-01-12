@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, WritableSignal, signal } from '@angular/core';
 import { Observable, finalize, map, of, tap } from 'rxjs';
 import { environment } from '../../../../environments/environment.development';
-import { GenresResult } from '../../../core/models/genres';
 import { Genre } from '../../../core/models/game';
+import { GenresResult } from '../../../core/models/genres';
 
 @Injectable({ providedIn: 'root' })
 export class GenreService {

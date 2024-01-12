@@ -1,0 +1,108 @@
+<section class="flex items-center justify-center h-[500px]">
+  <form
+    [formGroup]="form"
+    (ngSubmit)="submitClicked$.next()"
+    class="flex flex-col items-center gap-5 justify-center"
+  >
+    <h1 class="text-5xl text-white font-bold">Login</h1>
+    <div class="form-group">
+      <div class="relative">
+        <div
+          class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-4 h-4 text-gray-500"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+            <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+          </svg>
+        </div>
+        <input
+          type="email"
+          autocomplete="off"
+          id="default-search"
+          class="block w-full p-3 ps-10 text-sm outline-none text-gray-900 bg-[#3b3b3b] hover:bg-white focus:bg-white transition-colors duration-300"
+          placeholder="Email"
+          formControlName="email"
+        />
+      </div>
+      @if(form.controls['email'].invalid && (form.controls['email'].dirty ||
+      form.controls['email'].touched)) {
+      <span class="text-sm text-red-600">Invalid email</span>
+
+      }
+    </div>
+
+    <div class="form-group">
+      <div class="relative">
+        <div
+          class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon icon-tabler icon-tabler-lock"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6z"
+            />
+            <path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
+            <path d="M8 11v-4a4 4 0 1 1 8 0v4" />
+          </svg>
+        </div>
+        <input
+          type="password"
+          autocomplete="off"
+          id="default-search"
+          class="block w-full p-3 ps-10 text-sm outline-none text-gray-900 bg-[#3b3b3b] hover:bg-white focus:bg-white transition-colors duration-300"
+          placeholder="Password"
+          formControlName="password"
+        />
+      </div>
+      @if(form.controls['email'].invalid && (form.controls['email'].dirty ||
+      form.controls['email'].touched)) {
+      <span class="text-sm text-red-600">Password is required</span>
+
+      }
+    </div>
+
+    <button
+      class="p-3 flex gap-5 w-full justify-between bg-[#3b3b3b] text-white hover:bg-white text-center hover:text-[#3b3b3b] transition-colors duration-300"
+    >
+      <span>Submit</span>
+      @if($loading()){
+
+      <app-spinner></app-spinner>
+      }
+    </button>
+    <div class="flex items-center mb-4 w-full">
+      <input
+        id="default-checkbox"
+        type="checkbox"
+        formControlName="remember"
+        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+      />
+      <label for="default-checkbox" class="ms-2 text-sm font-medium text-white"
+        >Remember me</label
+      >
+    </div>
+  </form>
+</section>

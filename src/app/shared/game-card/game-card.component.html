@@ -16,6 +16,8 @@
       >
       <div class="flex gap-1 items-center">
         <button
+          [ngClass]="{ 'bg-white text-[#3b3b3b]': $favourite() }"
+          (click)="tooggleFavourite()"
           class="py-1 px-2 flex items-center gap-1 bg-[#3b3b3b] text-white hover:bg-white hover:text-[#3b3b3b] rounded-md transition-colors duration-300"
         >
           <svg

@@ -4,15 +4,15 @@
     (ngSubmit)="submitClicked$.next()"
     class="flex flex-col items-center gap-5 justify-center"
   >
-    <h1 class="text-5xl text-white font-bold">Login</h1>
-    <div class="form-group">
+    <h1 class="text-5xl md:text-7xl text-white font-bold">Log in</h1>
+    <div class="form-group w-full">
       <div class="relative">
         <div
           class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="w-4 h-4 text-gray-500"
+            class="w-4 h-4 text-white"
             width="24"
             height="24"
             viewBox="0 0 24 24"
@@ -31,7 +31,7 @@
           type="email"
           autocomplete="off"
           id="default-search"
-          class="block w-full p-3 ps-10 text-sm outline-none text-gray-900 bg-[#3b3b3b] hover:bg-white focus:bg-white transition-colors duration-300"
+          class="block w-full p-3 ps-10 text-sm outline-none text-white bg-[#3b3b3b]"
           placeholder="Email"
           formControlName="email"
         />
@@ -43,14 +43,14 @@
       }
     </div>
 
-    <div class="form-group">
+    <div class="form-group w-full">
       <div class="relative">
         <div
           class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="icon icon-tabler icon-tabler-lock"
+            class="w-4 h-4 text-white"
             width="24"
             height="24"
             viewBox="0 0 24 24"
@@ -72,7 +72,7 @@
           type="password"
           autocomplete="off"
           id="default-search"
-          class="block w-full p-3 ps-10 text-sm outline-none text-gray-900 bg-[#3b3b3b] hover:bg-white focus:bg-white transition-colors duration-300"
+          class="block w-full p-3 ps-10 text-sm outline-none text-white bg-[#3b3b3b]"
           placeholder="Password"
           formControlName="password"
         />
@@ -83,16 +83,18 @@
 
       }
     </div>
-
-    <button
-      class="p-3 flex gap-5 w-full justify-between bg-[#3b3b3b] text-white hover:bg-white text-center hover:text-[#3b3b3b] transition-colors duration-300"
-    >
-      <span>Submit</span>
+    <div class="w-full relative gap-5">
+      <button
+        class="p-3 flex gap-5 w-full justify-between bg-[#3b3b3b] text-white hover:bg-white text-center hover:text-[#3b3b3b] transition-colors duration-300"
+      >
+        <span>Submit</span>
+      </button>
       @if($loading()){
 
-      <app-spinner></app-spinner>
+      <app-spinner class="absolute top-2 right-5"></app-spinner>
       }
-    </button>
+    </div>
+
     <div class="flex items-center mb-4 w-full">
       <input
         id="default-checkbox"

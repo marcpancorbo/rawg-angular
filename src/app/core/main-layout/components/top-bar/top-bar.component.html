@@ -1,115 +1,120 @@
-<header class="w-full items-center flex gap-5 text-white">
+<header
+  class="w-full flex-col md:flex-row md:items-center flex gap-5 text-white"
+>
   <h1 class="text-xl font-bold">
     <a [routerLink]="['/']" title="Home"> AnguRawg </a>
   </h1>
-
-  <div class="flex-1">
-    <label
-      for="default-search"
-      class="mb-2 text-sm font-medium text-gray-900 sr-only"
-      >Search</label
-    >
-    <div class="relative">
-      <div
-        class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
+  <div class="w-full flex flex-col-reverse md:flex-row gap-5 md:items-center">
+    <div class="flex-1">
+      <label
+        for="default-search"
+        class="mb-2 text-sm font-medium text-gray-900 sr-only"
+        >Search</label
       >
-        <svg
-          class="w-4 h-4 text-gray-500"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 20 20"
+      <div class="relative">
+        <div
+          class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
         >
-          <path
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-          />
-        </svg>
-      </div>
-      <input
-        type="search"
-        autocomplete="off"
-        id="default-search"
-        class="block w-full p-3 ps-10 text-sm outline-none text-gray-900 rounded-full bg-[#3b3b3b] hover:bg-white focus:bg-white transition-colors duration-300"
-        placeholder="Search Games..."
-        [(ngModel)]="query"
-        (ngModelChange)="queryChange$.next($event)"
-        #searchInput
-      />
-      <div
-        class="absolute gap-1 inset-y-0 end-0 flex items-center pe-5 pointer-events-none text-sm text-gray-500"
-      >
-        <div class="border border-gray-500 px-1.5 py-0.5">
-          <code>alt</code>
+          <svg
+            class="w-4 h-4 text-gray-500"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 20 20"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+            />
+          </svg>
         </div>
-        <span>+</span>
-        <div class="border border-gray-500 px-1.5 py-0.5">
-          <code>enter</code>
+        <input
+          type="search"
+          autocomplete="off"
+          id="default-search"
+          class="block w-full p-3 ps-10 text-sm outline-none text-gray-900 rounded-full bg-[#3b3b3b] hover:bg-white focus:bg-white transition-colors duration-300"
+          placeholder="Search Games..."
+          [(ngModel)]="query"
+          (ngModelChange)="queryChange$.next($event)"
+          #searchInput
+        />
+        <div
+          class="absolute gap-1 inset-y-0 end-0 flex items-center pe-5 pointer-events-none text-sm text-gray-500"
+        >
+          <div class="border border-gray-500 px-1.5 py-0.5">
+            <code>alt</code>
+          </div>
+          <span>+</span>
+          <div class="border border-gray-500 px-1.5 py-0.5">
+            <code>enter</code>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  @if (!$user()) {
-  <a
-    [routerLink]="['/auth']"
-    class="text-sm font-semibold hover:underline hover:underline-offset-8"
-    >LOG IN</a
-  >
-  }@else {
-  <a
-    [routerLink]="['/user']"
-    class="text-sm font-semibold hover:underline hover:underline-offset-8"
-    >{{ $user()?.name }}</a
-  >
-  }
+    <div class="flex gap-5 items-center">
+      @if (!$user()) {
+      <a
+        [routerLink]="['/auth']"
+        class="text-sm font-semibold hover:underline hover:underline-offset-8"
+        >LOG IN</a
+      >
+      }@else {
+      <a
+        [routerLink]="['/user']"
+        class="text-sm font-semibold hover:underline hover:underline-offset-8"
+        >{{ $user()?.name }}</a
+      >
+      }
 
-  <a
-    href="#"
-    class="text-sm font-semibold hover:underline hover:underline-offset-8"
-    >API</a
-  >
-  @if (!$user()) {
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    class="icon icon-tabler icon-tabler-dots"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    stroke-width="2"
-    stroke="currentColor"
-    fill="none"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-  >
-    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-    <path d="M5 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-    <path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-    <path d="M19 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-  </svg>
-  }@else {
-  <button (click)="logout()">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      class="icon icon-tabler icon-tabler-logout"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      stroke-width="2"
-      stroke="currentColor"
-      fill="none"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    >
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path
-        d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"
-      />
-      <path d="M9 12h12l-3 -3" />
-      <path d="M18 15l3 -3" />
-    </svg>
-  </button>
-  }
+      <a
+        href="#"
+        class="text-sm font-semibold hover:underline hover:underline-offset-8"
+        >API</a
+      >
+      @if (!$user()) {
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="size-4"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        stroke-width="2"
+        stroke="currentColor"
+        fill="none"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M5 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+        <path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+        <path d="M19 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+      </svg>
+      }@else {
+      <button (click)="logout()" title="Logout">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="size-4"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path
+            d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"
+          />
+          <path d="M9 12h12l-3 -3" />
+          <path d="M18 15l3 -3" />
+        </svg>
+      </button>
+      }
+    </div>
+  </div>
 </header>

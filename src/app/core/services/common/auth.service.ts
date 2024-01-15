@@ -23,7 +23,7 @@ export class AuthService {
   }): Observable<User> {
     this.$loading.set(true);
     const user: User = new User({
-      name: 'ProgramMarc',
+      name: 'PrograMarc',
       email: 'programarcdev@gmail.com',
       storageService: this.storageService,
     });
